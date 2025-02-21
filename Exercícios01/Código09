@@ -1,0 +1,21 @@
+package controle;
+
+import java.util.Scanner;
+
+public class Código09 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o valor em reais (R$): ");
+        double valorReais = scanner.nextDouble();
+
+        System.out.print("Digite a cotação do dólar no dia: ");
+        double cotacaoDolar = scanner.nextDouble();
+
+        double valorDolares = valorReais / cotacaoDolar;
+
+        System.out.println("O valor equivalente em dólares (US$) é: " + valorDolares);
+
+        scanner.close();
+    }
+}
