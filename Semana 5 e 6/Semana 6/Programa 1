@@ -1,0 +1,17 @@
+package Semana6;
+
+import java.util.Scanner;
+
+public class Programa1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        int soma = 0;
+
+        for (int i = 1; i <= N; i++) {
+            soma += i;
+        }
+
+        System.out.println(soma);
+    }
+}
