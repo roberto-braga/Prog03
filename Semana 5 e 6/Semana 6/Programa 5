@@ -1,0 +1,26 @@
+package Semana6;
+
+import java.util.Scanner;
+
+public class Programa5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int inicio = sc.nextInt();
+        int fim = sc.nextInt();
+
+        for (int i = inicio; i <= fim; i++) {
+            boolean ehPrimo = true;
+
+            for (int j = 2; j <= Math.sqrt(i); j++) {
+                if (i % j == 0) {
+                    ehPrimo = false;
+                    break;
+                }
+            }
+
+            if (ehPrimo && i > 1) {
+                System.out.println(i);
+            }
+        }
+    }
+}
