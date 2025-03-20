@@ -1,0 +1,47 @@
+package Semana5;
+
+import java.util.Scanner;
+
+public class Programa3 {
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Digite um número:");
+        double num1 = sc.nextDouble();
+
+        System.out.print("Digite outro número:");
+        double num2 = sc.nextDouble();
+
+        System.out.print("Escolha a operação ( +, -, *, /):" );
+        char operacao = sc.next().charAt(0);
+
+        double resultado;
+        switch (operacao) {
+            case '+':
+                resultado = num1 + num2;
+                System.out.println("Resultado da Soma:" + resultado);
+                break;
+            case '-':
+                resultado = num1 - num2;
+                System.out.println("Resultado da Subtração:" + resultado);
+                break;
+            case '*':
+                resultado = num1 * num2;
+                System.out.println("Resultado da Multiplicação:" + resultado);
+                break;
+            case'/':
+                if (num2 == 0) {
+                    System.out.println("Erro: Não é possível dividir por zero.");
+                } else {
+                    resultado = num1 / num2;
+                    System.out.println("Resultado da Divisão:" + resultado);
+                }
+                break;
+            default:
+                System.out.println("Operação Inválida");
+                break;
+        }
+        sc.close();
+
+    }
+}
