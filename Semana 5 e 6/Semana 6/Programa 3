@@ -1,0 +1,15 @@
+package Semana6;
+
+import java.util.Scanner;
+
+public class Programa3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int numero = sc.nextInt();
+
+        do {
+            System.out.println(numero);
+            numero--;
+        } while (numero >= 0);
+    }
+}
