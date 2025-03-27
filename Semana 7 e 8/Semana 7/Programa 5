@@ -1,0 +1,81 @@
+// Pacote dominio e classe CaixaEletronico
+
+package dominio;
+
+public class CaixaEletronico {
+    private double saldo;
+
+    public CaixaEletronico(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public boolean sacar(double valor) {
+        if (valor % 10 == 0 && valor <= saldo) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+
+    public void exibirSaldo() {
+        System.out.println("Saldo restante: R$ " + saldo);
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+}
+
+// Pacote controle e classe SimuladorCaixa
+
+package controle;
+
+import dominio.CaixaEletronico;
+import java.util.Scanner;
+
+public class SimuladorCaixa {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o saldo inicial da conta: R$ ");
+        double saldoInicial = scanner.nextDouble();
+
+        CaixaEletronico caixa = new CaixaEletronico(saldoInicial);
+
+        int opcao;
+        do {
+            System.out.println("\nEscolha uma operação:");
+            System.out.println("1. Sacar");
+            System.out.println("2. Consultar Saldo");
+            System.out.println("3. Sair");
+            System.out.print("Opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o valor para saque (múltiplos de R$ 10): R$ ");
+                    double valorSaque = scanner.nextDouble();
+                    if (caixa.sacar(valorSaque)) {
+                        System.out.println("Saque realizado com sucesso!");
+                    } else {
+                        System.out.println("Saque inválido! Verifique o valor ou saldo.");
+                    }
+                    break;
+                case 2:
+                    caixa.exibirSaldo();
+                    break;
+                case 3:
+                    System.out.println("Saindo... Até logo!");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 3);
+
+        scanner.close();
+    }
+}
