@@ -1,0 +1,87 @@
+// Pacote dominio e classe Funcionario
+
+package dominio;
+
+public class Funcionario {
+    private String nome;
+    private double salarioBase;
+    private String categoria;
+
+    public Funcionario(String nome, double salarioBase, String categoria) {
+        this.nome = nome;
+        this.salarioBase = salarioBase;
+        this.categoria = categoria;
+    }
+
+    public double calcularSalarioFinal() {
+        double salarioFinal = salarioBase;
+        switch (categoria) {
+            case "A":
+                salarioFinal += salarioBase * 0.20;
+                break;
+            case "B":
+                salarioFinal += salarioBase * 0.10;
+                break;
+            case "C":
+                break;
+            default:
+                System.out.println("Categoria inválida");
+                break;
+        }
+        return salarioFinal;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+}
+
+// Pacote controle e classe GerenciadorFuncionario
+
+package controle;
+
+import dominio.Funcionario;
+import java.util.Scanner;
+
+public class GerenciadorFuncionario {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o nome do funcionário:");
+        String nome = scanner.nextLine();
+
+        System.out.println("Digite o salário base do funcionário:");
+        double salarioBase = scanner.nextDouble();
+
+        System.out.println("Digite a categoria do funcionário (A, B, C):");
+        String categoria = scanner.next();
+
+        Funcionario funcionario = new Funcionario(nome, salarioBase, categoria);
+
+        double salarioFinal = funcionario.calcularSalarioFinal();
+
+        System.out.println("Salário final de " + funcionario.getNome() + ": R$ " + salarioFinal);
+
+        scanner.close();
+    }
+}
