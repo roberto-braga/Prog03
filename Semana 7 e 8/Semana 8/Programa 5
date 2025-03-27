@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Programa5 {
+
+    public static void main(String[] args) {
+        int[] numeros = new int[10];
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Digite o " + (i+1) + "º número inteiro: ");
+            numeros[i] = scanner.nextInt();
+        }
+
+        System.out.print("Digite o número para buscar: ");
+        int numeroBuscado = scanner.nextInt();
+
+        boolean encontrado = false;
+        int posicao = -1;
+
+        for (int i = 0; i < 10; i++) {
+            if (numeros[i] == numeroBuscado) {
+                encontrado = true;
+                posicao = i;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            System.out.println("Número encontrado na posição: " + posicao);
+        } else {
+            System.out.println("Número não encontrado.");
+        }
+
+        scanner.close();
+    }
+}
