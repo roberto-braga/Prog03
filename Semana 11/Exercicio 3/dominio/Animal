@@ -1,0 +1,23 @@
+package dominio;
+
+public class Animal {
+	protected String nome;
+	protected double idade;
+	
+	public Animal(String nome, double idade) {
+		this.nome = nome;
+		this.idade = idade;
+	}
+	
+	public void emitirSom() {
+		System.out.println("Som genérico de animal:");
+	}
+	
+	public String getNome() {
+        return nome;
+    }
+
+    public double getIdade() {
+        return idade;
+    }
+}
