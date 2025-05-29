@@ -1,0 +1,19 @@
+package dominio;
+
+public class Veiculo {
+	protected String marca;
+	protected String modelo;
+	protected double ano;
+	
+	public Veiculo(String marca, String modelo, double ano) {
+		this.marca = marca;
+		this.modelo = modelo;
+		this.ano = ano;
+	}
+	
+	public void exibirDados() {
+		System.out.println("Marca:" + marca);
+		System.out.println("Modelo:" + modelo);
+		System.out.println("Ano:" + ano);
+	}
+}
