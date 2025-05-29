@@ -1,0 +1,17 @@
+package controle;
+
+import dominio.Carro;
+import dominio.Moto;
+
+public class ControlaVeiculo {
+	public static void main(String[] args) {
+		Carro carro = new Carro("Toyota", "Corolla", 2019, 4);
+		Moto moto = new Moto("Harley Davidson", "Fat Boy", 2024, 1868);
+		
+		System.out.println("==Dados do Carro==");
+		carro.exibirDados();
+		
+		System.out.println("==Dados da Moto==");
+		moto.exibirDados();
+	}
+}
