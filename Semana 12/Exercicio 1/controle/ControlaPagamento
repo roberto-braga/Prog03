@@ -1,6 +1,6 @@
-import pagamento.CartaoCredito;
-import pagamento.BoletoBancario;
-import pagamento.Pagamento;
+import dominio.CartaoCredito;
+import dominio.BoletoBancario;
+import dominio.Pagamento;
 
 
 public class ControlaPagamento {
