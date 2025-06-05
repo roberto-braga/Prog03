@@ -1,0 +1,58 @@
+package controle;
+
+import dominio.Smartphone;  
+import dominio.Televisao;  
+import dominio.DispositivoEletronico;  
+
+import java.util.Scanner;  
+
+public class ControlaDispositivos {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        DispositivoEletronico smartphone = new Smartphone();
+        DispositivoEletronico televisao = new Televisao();
+
+        while (true) {
+            System.out.println("Escolha um dispositivo para controlar:");
+            System.out.println("1 - Smartphone");
+            System.out.println("2 - Televisão");
+            System.out.println("0 - Sair");
+            System.out.print("Sua escolha: ");
+            int escolha = scanner.nextInt();
+
+            if (escolha == 0) {
+                System.out.println("Saindo do programa...");
+                break;
+            }
+
+            System.out.println("Escolha uma ação:");
+            System.out.println("1 - Ligar");
+            System.out.println("2 - Desligar");
+            System.out.print("Sua escolha: ");
+            int acao = scanner.nextInt();
+
+            if (escolha == 1) {
+                if (acao == 1) {
+                    smartphone.ligar();
+                } else if (acao == 2) {
+                    smartphone.desligar();
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else if (escolha == 2) {
+                if (acao == 1) {
+                    televisao.ligar();
+                } else if (acao == 2) {
+                    televisao.desligar();
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else {
+                System.out.println("Opção inválida.");
+            }
+        }
+
+        scanner.close();
+    }
+}
