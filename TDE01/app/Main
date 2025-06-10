@@ -1,0 +1,109 @@
+import java.util.Scanner;
+import controle.GerenciadorAutomoveis;
+import dominio.Automovel;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        GerenciadorAutomoveis gerenciador = new GerenciadorAutomoveis();
+        int opcao;
+
+        do {
+            System.out.println("\n=== Cadastro de Automóveis ===");
+            System.out.println("1 - Incluir automóvel");
+            System.out.println("2 - Remover automóvel");
+            System.out.println("3 - Alterar dados de automóvel");
+            System.out.println("4 - Consultar automóvel por placa");
+            System.out.println("5 - Listar automóveis (ordenado)");
+            System.out.println("6 - Salvar e sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Placa: ");
+                    String placa = sc.nextLine();
+                    if (gerenciador.buscarPorPlaca(placa) != null) {
+                        System.out.println("Placa já cadastrada!");
+                        break;
+                    }
+                    System.out.print("Modelo: ");
+                    String modelo = sc.nextLine();
+                    System.out.print("Marca: ");
+                    String marca = sc.nextLine();
+                    System.out.print("Ano: ");
+                    int ano = sc.nextInt();
+                    System.out.print("Valor: ");
+                    double valor = sc.nextDouble();
+                    sc.nextLine();
+
+                    Automovel auto = new Automovel(placa, modelo, marca, ano, valor);
+                    gerenciador.inserirAutomovel(auto);
+                    System.out.println("Automóvel incluído com sucesso!");
+                    break;
+
+                case 2:
+                    System.out.print("Placa para remover: ");
+                    String placaRem = sc.nextLine();
+                    if (gerenciador.removerAutomovel(placaRem)) {
+                        System.out.println("Automóvel removido.");
+                    } else {
+                        System.out.println("Placa não encontrada.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Placa para alterar: ");
+                    String placaAlt = sc.nextLine();
+                    Automovel autoAlt = gerenciador.buscarPorPlaca(placaAlt);
+                    if (autoAlt == null) {
+                        System.out.println("Placa não encontrada.");
+                        break;
+                    }
+                    System.out.print("Novo modelo: ");
+                    String novoModelo = sc.nextLine();
+                    System.out.print("Nova marca: ");
+                    String novaMarca = sc.nextLine();
+                    System.out.print("Novo ano: ");
+                    int novoAno = sc.nextInt();
+                    System.out.print("Novo valor: ");
+                    double novoValor = sc.nextDouble();
+                    sc.nextLine();
+
+                    gerenciador.alterarAutomovel(placaAlt, novoModelo, novaMarca, novoAno, novoValor);
+                    System.out.println("Dados atualizados.");
+                    break;
+
+                case 4:
+                    System.out.print("Placa para consultar: ");
+                    String placaCon = sc.nextLine();
+                    Automovel autoCon = gerenciador.buscarPorPlaca(placaCon);
+                    if (autoCon != null) {
+                        System.out.println("Dados do automóvel:");
+                        System.out.println(autoCon);
+                    } else {
+                        System.out.println("Placa não encontrada.");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Ordenar por: 1-Placa 2-Modelo 3-Marca");
+                    int criterio = sc.nextInt();
+                    sc.nextLine();
+                    gerenciador.listarAutomoveis(criterio);
+                    break;
+
+                case 6:
+                    gerenciador.salvarEmArquivo();
+                    System.out.println("Dados salvos. Saindo...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 6);
+
+        sc.close();
+    }
+}
