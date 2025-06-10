@@ -1,0 +1,112 @@
+package controle;
+
+import java.io.*;
+import java.util.*;
+import dominio.Automovel;
+
+public class GerenciadorAutomoveis {
+    private ArrayList<Automovel> lista = new ArrayList<>();
+    private final String arquivo = "automoveis.txt";
+
+    public GerenciadorAutomoveis() {
+        carregarDoArquivo();
+    }
+
+    public boolean inserirAutomovel(Automovel auto) {
+        if (buscarPorPlaca(auto.getPlaca()) != null) {
+            return false; // placa já existe
+        }
+        lista.add(auto);
+        return true;
+    }
+
+    public boolean removerAutomovel(String placa) {
+        Automovel auto = buscarPorPlaca(placa);
+        if (auto != null) {
+            lista.remove(auto);
+            return true;
+        }
+        return false;
+    }
+
+    public Automovel buscarPorPlaca(String placa) {
+        for (Automovel a : lista) {
+            if (a.getPlaca().equalsIgnoreCase(placa)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public boolean alterarAutomovel(String placa, String modelo, String marca, int ano, double valor) {
+        Automovel auto = buscarPorPlaca(placa);
+        if (auto != null) {
+            auto.setModelo(modelo);
+            auto.setMarca(marca);
+            auto.setAno(ano);
+            auto.setValor(valor);
+            return true;
+        }
+        return false;
+    }
+
+    public void listarAutomoveis(int criterio) {
+        Comparator<Automovel> comp;
+
+        switch (criterio) {
+            case 1:
+                comp = Comparator.comparing(Automovel::getPlaca, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case 2:
+                comp = Comparator.comparing(Automovel::getModelo, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case 3:
+                comp = Comparator.comparing(Automovel::getMarca, String.CASE_INSENSITIVE_ORDER);
+                break;
+            default:
+                comp = Comparator.comparing(Automovel::getPlaca, String.CASE_INSENSITIVE_ORDER);
+        }
+
+        lista.sort(comp);
+
+        for (Automovel a : lista) {
+            System.out.println(a);
+        }
+    }
+
+    public void salvarEmArquivo() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
+            for (Automovel a : lista) {
+                bw.write(a.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+        }
+    }
+
+    private void carregarDoArquivo() {
+        File file = new File(arquivo);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] dados = linha.split(",");
+                if (dados.length == 5) {
+                    String placa = dados[0];
+                    String modelo = dados[1];
+                    String marca = dados[2];
+                    int ano = Integer.parseInt(dados[3]);
+                    double valor = Double.parseDouble(dados[4]);
+                    Automovel auto = new Automovel(placa, modelo, marca, ano, valor);
+                    lista.add(auto);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar arquivo: " + e.getMessage());
+        }
+    }
+}
