@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class Exercicio1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String caminho = "texto.txt";
+
+        try {
+            // Gravação
+            System.out.println("Digite um texto para salvar no arquivo:");
+            String texto = scanner.nextLine();
+
+            FileWriter fw = new FileWriter(caminho);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(texto);
+            bw.close();
+
+            // Leitura
+            FileReader fr = new FileReader(caminho);
+            BufferedReader br = new BufferedReader(fr);
+
+            System.out.println("\nConteúdo do arquivo:");
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                System.out.println(linha);
+            }
+            br.close();
+
+        } catch (IOException e) {
+            System.out.println("Erro ao manipular o arquivo: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
