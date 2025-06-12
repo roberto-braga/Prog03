@@ -1,0 +1,22 @@
+package model;
+
+public class Medico extends Pessoa {
+    private String especialidade;
+
+    public Medico(String nome, String cpf, String especialidade) throws CampoObrigatorioException {
+        super(nome, cpf);
+        if (especialidade == null || especialidade.isEmpty()) {
+            throw new CampoObrigatorioException("Especialidade é obrigatória.");
+        }
+        this.especialidade = especialidade;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    @Override
+    public void exibirDados() {
+        System.out.println("Médico - Nome: " + nome + ", CPF: " + cpf + ", Especialidade: " + especialidade);
+    }
+}
