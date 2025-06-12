@@ -1,0 +1,13 @@
+package model;
+
+public class Paciente extends Pessoa {
+
+    public Paciente(String nome, String cpf) throws CampoObrigatorioException {
+        super(nome, cpf);
+    }
+
+    @Override
+    public void exibirDados() {
+        System.out.println("Paciente - Nome: " + nome + ", CPF: " + cpf);
+    }
+}
