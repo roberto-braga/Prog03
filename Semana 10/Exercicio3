@@ -1,0 +1,28 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Exercicio3 extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+        TextField input = new TextField();
+        Button btn = new Button("Exibir Mensagem");
+        Label label = new Label();
+
+        btn.setOnAction(e -> label.setText(input.getText()));
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(input, btn, label);
+
+        Scene scene = new Scene(layout, 300, 150);
+        primaryStage.setTitle("Simulador de Mensagens");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
