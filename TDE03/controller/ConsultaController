@@ -1,0 +1,35 @@
+package controller;
+
+import model.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConsultaController {
+    private List<Consulta> consultas = new ArrayList<>();
+
+    public void agendarConsulta(Consulta consulta) {
+        consultas.add(consulta);
+    }
+
+    public void listarConsultas() {
+        for (Consulta c : consultas) {
+            c.exibirDados();
+            System.out.println("--------------------");
+        }
+    }
+
+    public Consulta buscarPorPaciente(String nomePaciente) throws ConsultaNaoEncontradaException {
+        for (Consulta c : consultas) {
+            if (c.getPaciente().getNome().equalsIgnoreCase(nomePaciente)) {
+                return c;
+            }
+        }
+        throw new ConsultaNaoEncontradaException("Consulta não encontrada para o paciente: " + nomePaciente);
+    }
+
+    public void cancelarConsulta(String nomePaciente) throws ConsultaNaoEncontradaException {
+        Consulta consulta = buscarPorPaciente(nomePaciente);
+        consultas.remove(consulta);
+    }
+}
