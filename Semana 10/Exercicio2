@@ -1,0 +1,25 @@
+import java.io.*;
+
+public class Exercicio2 {
+    public static void main(String[] args) {
+        String caminho = "dados.txt";
+        int totalPalavras = 0;
+
+        try {
+            FileReader fr = new FileReader(caminho);
+            BufferedReader br = new BufferedReader(fr);
+            String linha;
+
+            while ((linha = br.readLine()) != null) {
+                String[] palavras = linha.trim().split("\\s+"); // divide por espaços
+                totalPalavras += palavras.length;
+            }
+
+            br.close();
+            System.out.println("Total de palavras no arquivo: " + totalPalavras);
+
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+    }
+}
