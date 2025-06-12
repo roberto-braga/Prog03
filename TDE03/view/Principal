@@ -1,0 +1,103 @@
+package view;
+
+import controller.ConsultaController;
+import model.*;
+
+import java.util.Scanner;
+
+public class Principal {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ConsultaController controller = new ConsultaController();
+        int opcao;
+
+        do {
+            System.out.println("\n1 - Cadastrar Médico");
+            System.out.println("2 - Cadastrar Paciente");
+            System.out.println("3 - Agendar Consulta");
+            System.out.println("4 - Listar Consultas");
+            System.out.println("5 - Buscar Consulta por Nome");
+            System.out.println("6 - Cancelar Consulta");
+            System.out.println("7 - Sair");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            try {
+                switch (opcao) {
+                    case 1:
+                        System.out.print("Nome: ");
+                        String nomeMedico = scanner.nextLine();
+                        System.out.print("CPF: ");
+                        String cpfMedico = scanner.nextLine();
+                        System.out.print("Especialidade: ");
+                        String especialidade = scanner.nextLine();
+                        Medico medico = new Medico(nomeMedico, cpfMedico, especialidade);
+                        System.out.println("Médico cadastrado com sucesso.");
+                        break;
+
+                    case 2:
+                        System.out.print("Nome: ");
+                        String nomePaciente = scanner.nextLine();
+                        System.out.print("CPF: ");
+                        String cpfPaciente = scanner.nextLine();
+                        Paciente paciente = new Paciente(nomePaciente, cpfPaciente);
+                        System.out.println("Paciente cadastrado com sucesso.");
+                        break;
+
+                    case 3:
+                        System.out.print("Nome do Médico: ");
+                        String nm = scanner.nextLine();
+                        System.out.print("CPF do Médico: ");
+                        String cm = scanner.nextLine();
+                        System.out.print("Especialidade: ");
+                        String esp = scanner.nextLine();
+                        Medico m = new Medico(nm, cm, esp);
+
+                        System.out.print("Nome do Paciente: ");
+                        String np = scanner.nextLine();
+                        System.out.print("CPF do Paciente: ");
+                        String cp = scanner.nextLine();
+                        Paciente p = new Paciente(np, cp);
+
+                        System.out.print("Data da Consulta: ");
+                        String data = scanner.nextLine();
+
+                        Consulta consulta = new Consulta(m, p, data);
+                        controller.agendarConsulta(consulta);
+                        System.out.println("Consulta agendada.");
+                        break;
+
+                    case 4:
+                        controller.listarConsultas();
+                        break;
+
+                    case 5:
+                        System.out.print("Nome do paciente: ");
+                        String nomeBusca = scanner.nextLine();
+                        Consulta c = controller.buscarPorPaciente(nomeBusca);
+                        c.exibirDados();
+                        break;
+
+                    case 6:
+                        System.out.print("Nome do paciente: ");
+                        String nomeCancelamento = scanner.nextLine();
+                        controller.cancelarConsulta(nomeCancelamento);
+                        System.out.println("Consulta cancelada.");
+                        break;
+
+                    case 7:
+                        System.out.println("Encerrando...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (CampoObrigatorioException | ConsultaNaoEncontradaException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        } while (opcao != 7);
+
+        scanner.close();
+    }
+}
